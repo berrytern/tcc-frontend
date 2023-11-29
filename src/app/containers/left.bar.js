@@ -45,9 +45,9 @@ export function LeftBar(props) {
             )
             case "professor": return (
                 <><div className={styles.selection}>
-                    <button onClick={()=>setContent("aluno")}>Alunos</button>
+                    <button className={content==="aluno"?styles.active:undefined} onClick={()=>setContent("aluno")}>Alunos</button>
                 </div><div className={styles.selection}>
-                        <button onClick={()=>setContent("solicitacoes_prof")}>Solicitações</button>
+                        <button className={content==="solicitacoes_prof"?styles.active:undefined} onClick={()=>setContent("solicitacoes_prof")}>Solicitações</button>
                 </div></>
             )
             case "gestor": return (
