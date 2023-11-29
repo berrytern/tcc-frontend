@@ -1,21 +1,25 @@
 import axios from 'axios';
 
+const getQuery = (filters) => {
+    return '?' + Object.keys(filters).filter(item=>filters[item]).map(item => item+"="+String(filters[item])).join('&')
+}
+
 export default class ProfessorRepository {
     static get_one(filters){
-        const query = '?' + Object.keys(filters).map(item => item+"="+String(filters[item])).join('&')
-        return axios.get(process.env.URL+'/v1/professores/one'+query)
+        const query = getQuery(filters)
+        return axios.get('/v1/professores/one'+query)
     }
     static get_all(filters){
-        const query = '?' + Object.keys(filters).map(item => item+"="+String(filters[item])).join('&')
-        return axios.get(process.env.URL+'/v1/professores'+query)
+        const query = getQuery(filters)
+        return axios.get('/v1/professores'+query)
     }
     static create(body) {
-        return axios.post(process.env.URL+'/v1/professores', body)
+        return axios.post('/v1/professores', body)
     }
     static update(professor_id){
-        return axios.patch(process.env.URL+`/v1/professores/${professor_id}`, {login,password})
+        return axios.patch(`/v1/professores/${professor_id}`, {login,password})
     }
     static delete(professor_id){
-        return axios.delete(process.env.URL+`/v1/professores/${professor_id}`, {login,password})
+        return axios.delete(`/v1/professores/${professor_id}`, {login,password})
     }
 }

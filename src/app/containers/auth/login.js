@@ -3,21 +3,11 @@ import styles from '../../page.module.css'
 import AuthRepository from "@/app/repository/auth";
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import InputGroup from 'react-bootstrap/InputGroup';
 
 
 export function Login(props) {
     const setPage = props.setPage
-    const handleSubmit = (event) => {
-        const form = event.currentTarget;
-        if (form.checkValidity() === false) {
-          event.preventDefault();
-          event.stopPropagation();
-        }
-
-        setValidated(true);
-    }
-
+    const setLogged = props.setLogged
     const handlerSubmit = (event)=> {
         event.preventDefault();
         event.stopPropagation();
@@ -25,7 +15,14 @@ export function Login(props) {
         let login = document.getElementById("login")
         let password = document.getElementById("password")
         AuthRepository.login(login.value, password.value)
-            .then(response=>console.log(response))
+            .then(response=>{
+                if (response.status == 200){
+                    localStorage.setItem("token",response.data.access_token)
+                    localStorage.setItem("refresh_token",response.data.refresh_token)
+                    setPage("professores")
+                    setLogged(true)
+                }
+            })
             .catch(error=>console.log(error))
     }
     return (

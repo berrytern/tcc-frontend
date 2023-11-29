@@ -1,16 +1,16 @@
 'use client';
 import React from 'react';
 import styles from '../page.module.css'
-import { Solicitacao } from './rightcontainer/solicitacao'
+import { Professor } from './rightcontainer/professor'
 
 export function RightContainer(props) {
     const page = props.page
     const loadPage = () => {
         switch (page){
-            case "solicitacao":
-                return <Solicitacao/>
+            case "professores":
+                return <Professor/>
             default:
-                return <Solicitacao/>
+                return <Professor/>
         }
     }
     return (

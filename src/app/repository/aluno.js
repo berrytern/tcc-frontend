@@ -1,21 +1,22 @@
 import axios from 'axios';
+import queryParser from './query_parser'
+
 
 export default class AlunoRepository {
-    static get_one(filters){
-        const query = '?' + Object.keys(filters).map(item => item+"="+String(filters[item])).join('&')
-        return axios.get(process.env.URL+'/v1/alunos/one'+query)
+    static get_one(id){
+        return axios.get(`/v1/alunos/${id}`)
     }
     static get_all(filters){
-        const query = '?' + Object.keys(filters).map(item => item+"="+String(filters[item])).join('&')
-        return axios.get(process.env.URL+'/v1/alunos'+query)
+        const query = queryParser(filters)
+        return axios.get('/v1/alunos'+query)
     }
     static create(body) {
-        return axios.post(process.env.URL+'/v1/alunos', body)
+        return axios.post('/v1/alunos', body)
     }
     static update(professor_id){
-        return axios.patch(process.env.URL+`/v1/alunos/${professor_id}`, {login,password})
+        return axios.patch(`/v1/alunos/${professor_id}`, {login,password})
     }
     static delete(professor_id){
-        return axios.delete(process.env.URL+`/v1/alunos/${professor_id}`, {login,password})
+        return axios.delete(`/v1/alunos/${professor_id}`, {login,password})
     }
 }
